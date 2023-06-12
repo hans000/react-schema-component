@@ -6,9 +6,7 @@ export function compileExpression(raw: any, context: Record<string, any>) {
     try {
         const expression = match[1]
         const handle = new Function('c', `const $context = c;return ${expression}`)
-        return handle({
-            $context: context,
-        })
+        return handle(context)
     } catch (error) {
         console.error(error)
         return null

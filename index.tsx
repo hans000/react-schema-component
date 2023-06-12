@@ -1,17 +1,15 @@
-import React, { Suspense, createElement } from "react"
-import { Alert } from "antd"
+import React, { Suspense } from "react"
 import { compileExpression, getComponent, isVanillaElement } from "./utils"
-import antd from "./config/antd"
-import antdPro from "./config/antdPro"
 
 interface SchemaComponentProps {
     name: string
     props?: Record<string, any>
 }
 
-const componentMap = {
-    ...antd,
-    ...antdPro,
+let __map = {}
+
+export function registerComponents(map: Record<string, React.LazyExoticComponent<any> | React.FC<any>>) {
+    Object.assign(__map, map)
 }
 
 export default function SchemaComponent(props: {
@@ -19,6 +17,8 @@ export default function SchemaComponent(props: {
     context?: Record<string, any>
     style?: React.CSSProperties
     className?: string
+    renderNotFound?: (config: any) => React.ReactNode
+    fallback?: React.ReactNode
 }) {
 
     function handleProps(obj: any) {
@@ -55,16 +55,19 @@ export default function SchemaComponent(props: {
     }
 
     function renderItem(config: any, key: string | number) {
-        const Comp = getComponent(config.name, componentMap)
+        const Comp = getComponent(config.name, __map)
         const componentProps = config.props || {}
         const newProps = handleProps(componentProps)
 
         if (isVanillaElement(config.name)) {
-            return React.createElement(config.name, )
+            return React.createElement(config.name, { key, ...newProps })
         }
 
         if (!Comp) {
-            return <Alert showIcon description={`${config.component} cannot found`} key={key} type="error" />
+            if (props.renderNotFound) {
+                return props.renderNotFound(config)
+            }
+            return <span style={{ color: 'red', border: '1px solid #eee', padding: '8px 16px' }} key={key}>{config.name} cannot be found</span>
         }
 
 
@@ -73,7 +76,7 @@ export default function SchemaComponent(props: {
 
     return (
         <div className={props.className} style={props.style}>
-            <Suspense fallback={<span>loading</span>}>
+            <Suspense fallback={props.fallback ? props.fallback : <span>loading</span>}>
                 {
                     props.schema.map((info, index) => renderItem(info, index))
                 }

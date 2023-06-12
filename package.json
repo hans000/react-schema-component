@@ -1,14 +1,17 @@
 {
   "name": "react-schema-component",
-  "version": "0.1.0-alpha",
+  "version": "0.1.1-alpha",
   "description": "",
-  "main": "src/index.tsx",
-  "module": "src/index.tsx",
+  "main": "index.tsx",
+  "module": "index.tsx",
   "scripts": {
   },
   "keywords": [],
   "files": [
-    "src",
+    "config",
+    "utils",
+    "index",
+    "LICENSE",
     "readme"
   ],
   "author": {
