@@ -1,19 +1,37 @@
 import React, { Suspense } from "react"
-import { compileExpression, getComponent, isVanillaElement } from "./utils"
+import { VanillaElementType, compileExpression, getComponent, isVanillaElement } from "./utils"
 
-interface SchemaComponentProps {
-    name: string
-    props?: Record<string, any>
+type LiteralUnion<T> = T | (string & {})
+// type MergeIntersection<T> = { [Key in keyof T]: T[Key] }
+// type NotSymbol<K> = K extends Symbol ? never : K
+// interface SchemaPropsType<T, P extends keyof T = keyof T> {
+//     name: keyof T
+//     props?: WrapSchemaType<T[P]>
+// }
+// type PrefixSchemaType<T> = {
+//     [k in keyof T as `\$${NotSymbol<k>}`]?: SchemaPropsType<T> | string
+// }
+// type WrapSchemaType<T> = MergeIntersection<T & PrefixSchemaType<T>>
+
+// type NNN<T extends object = {}> = {
+//     [key in keyof T]: key extends `\$${NotSymbol<key>}` ? SchemaPropsType<T> : any
+// }
+
+type SchemaPropsType<T> = {
+    name: LiteralUnion<VanillaElementType | keyof T>
+    props?: any
 }
 
 let __map = {}
 
-export function registerComponents(map: Record<string, React.LazyExoticComponent<any> | React.FC<any>>) {
+type ComponentMapType = Record<string, React.LazyExoticComponent<any> | React.FC<any>>
+
+export function registerComponents(map: ComponentMapType) {
     Object.assign(__map, map)
 }
 
-export default function SchemaComponent(props: {
-    schema: SchemaComponentProps[]
+export default function SchemaComponent<T extends ComponentMapType>(props: {
+    schema: SchemaPropsType<T>[]
     context?: Record<string, any>
     style?: React.CSSProperties
     className?: string
