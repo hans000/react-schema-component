@@ -18,16 +18,7 @@ export function matchExpression(raw: string | undefined) {
 }
 
 export function getComponent(componentName: string | undefined, componentMap: Record<string, React.FC<any>>) {
-    if (! componentName) {
-        return
-    }
-    const dataIndex = componentName.split('.')
-    let result;
-    while (dataIndex.length) {
-        const segment = dataIndex.pop()!
-        result = componentMap[segment]
-    }
-    return result
+    return componentMap[componentName]
 }
 
 const vanillaElements = ['a',

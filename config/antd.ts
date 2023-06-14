@@ -1,16 +1,21 @@
 import { lazy } from 'react';
+import { Card } from 'antd';
 
 export default {
     Affix: lazy(() => import('antd/es/affix')),
     Alert: lazy(() => import('antd/es/alert')),
     Anchor: lazy(() => import('antd/es/anchor')),
+    'Anchor.AnchorLink': lazy(() => import('antd/es/anchor/AnchorLink')),
     App: lazy(() => import('antd/es/app')),
     AutoComplete: lazy(() => import('antd/es/auto-complete')),
     Avatar: lazy(() => import('antd/es/avatar')),
     BackTop: lazy(() => import('antd/es/back-top')),
     Badge: lazy(() => import('antd/es/badge')),
+    'Badge.Ribbon': lazy(() => import('antd/es/badge/Ribbon')),
     Breadcrumb: lazy(() => import('antd/es/breadcrumb')),
+    'Breadcrumb.Item': lazy(() => import('antd/es/breadcrumb/BreadcrumbItem')),
     Button: lazy(() => import('antd/es/button')),
+    'Button.Group': lazy(() => import('antd/es/button/button-group')),
     Calendar: lazy(() => import('antd/es/calendar')),
     Card: lazy(() => import('antd/es/card')),
     Carousel: lazy(() => import('antd/es/carousel')),
@@ -22,6 +27,7 @@ export default {
     ConfigProvider: lazy(() => import('antd/es/config-provider')),
     DatePicker: lazy(() => import('antd/es/date-picker')),
     Descriptions: lazy(() => import('antd/es/descriptions')),
+    'Descriptions.Item': lazy(() => import('antd/es/descriptions/Item')),
     Divider: lazy(() => import('antd/es/divider')),
     Drawer: lazy(() => import('antd/es/drawer')),
     Dropdown: lazy(() => import('antd/es/dropdown')),

@@ -85,12 +85,17 @@ export default function SchemaComponent<T extends ComponentMapType>(props: {
             if (props.renderNotFound) {
                 return props.renderNotFound(config)
             }
-            return <span style={{ color: 'red', border: '1px solid #eee', padding: '8px 16px' }} key={key}>{config.name} cannot be found</span>
+            return (
+                <div style={{ color: 'red', border: '1px solid #eee', padding: '8px 16px' }} key={key}>
+                    <span>`{config.name}`</span>
+                    <span> component cannot be found</span>
+                </div>
+            )
         }
 
         return (
-            <Suspense fallback={props.renderFallback ? props.renderFallback(config) : null}>
-                <Comp key={key} {...newProps} />
+            <Suspense key={key} fallback={props.renderFallback ? props.renderFallback(config) : null}>
+                <Comp {...newProps} />
             </Suspense>
         )
     }
