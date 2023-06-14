@@ -1,5 +1,9 @@
 # React Schema Component
 
+### Playground
+
+try it by [playground](https://hans000.github.io/react-schema-component/)
+
 ## Usage
 
 ```
@@ -58,4 +62,4 @@ function App() {
 |style|CSSProperties|
 |className|string||
 |renderNotFound|(config) => ReactNode|
-|fallback|ReactNode|
+|renderFallback|(config) => ReactNode|
