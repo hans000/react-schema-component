@@ -36,7 +36,7 @@ export default function SchemaComponent<T extends ComponentMapType>(props: {
     style?: React.CSSProperties
     className?: string
     renderNotFound?: (config: any) => React.ReactNode
-    fallback?: React.ReactNode
+    renderFallback?: (config: any) => React.ReactNode
 }) {
 
     function handleProps(obj: any) {
@@ -88,17 +88,18 @@ export default function SchemaComponent<T extends ComponentMapType>(props: {
             return <span style={{ color: 'red', border: '1px solid #eee', padding: '8px 16px' }} key={key}>{config.name} cannot be found</span>
         }
 
-
-        return <Comp key={key} {...newProps} />
+        return (
+            <Suspense fallback={props.renderFallback ? props.renderFallback(config) : null}>
+                <Comp key={key} {...newProps} />
+            </Suspense>
+        )
     }
 
     return (
         <div className={props.className} style={props.style}>
-            <Suspense fallback={props.fallback ? props.fallback : <span>loading</span>}>
-                {
-                    props.schema.map((info, index) => renderItem(info, index))
-                }
-            </Suspense>
+            {
+                props.schema.map((info, index) => renderItem(info, index))
+            }
         </div>
     )
 }

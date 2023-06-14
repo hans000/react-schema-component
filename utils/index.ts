@@ -17,7 +17,10 @@ export function matchExpression(raw: string | undefined) {
     return typeof raw === 'string' ? raw.match(/^\s*\{\{(.+)\}\}\s*$/) : null
 }
 
-export function getComponent(componentName: string, componentMap: Record<string, React.FC<any>>) {
+export function getComponent(componentName: string | undefined, componentMap: Record<string, React.FC<any>>) {
+    if (! componentName) {
+        return
+    }
     const dataIndex = componentName.split('.')
     let result;
     while (dataIndex.length) {
