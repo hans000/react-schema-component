@@ -17,10 +17,6 @@ export function matchExpression(raw: string | undefined) {
     return typeof raw === 'string' ? raw.match(/^\s*\{\{(.+)\}\}\s*$/) : null
 }
 
-export function getComponent(componentName: string | undefined, componentMap: Record<string, React.FC<any>>) {
-    return componentMap[componentName]
-}
-
 const vanillaElements = ['a',
 'abbr',
 'address',
@@ -143,4 +139,8 @@ export type VanillaElementType = typeof vanillaElements[number]
 
 export function isVanillaElement(name: string) {
     return vanillaElements.includes(name as any)
+}
+
+export function toDashName(name: string) {
+    return name.replace(/(?=[A-Z])(\w)/g, (_, a) => '-' + a.toLowerCase()).slice(1)
 }

@@ -2,7 +2,7 @@
 
 ### Playground
 
-try it by [playground](https://hans000.github.io/react-schema-component/)
+try it on [playground](https://hans000.github.io/react-schema-component/)
 
 ## Usage
 
@@ -63,3 +63,6 @@ function App() {
 |className|string||
 |renderNotFound|(config) => ReactNode|
 |renderFallback|(config) => ReactNode|
+
+License
+[MIT](./LICENSE)

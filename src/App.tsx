@@ -73,6 +73,32 @@ const raw = JSON.stringify([
                 }
             ]
         }
+    },
+    {
+        name: "ProTable",
+        props: {
+            columns: [
+                {
+                    dataIndex: 'name',
+                    title: '名称'
+                },
+                {
+                    dataIndex: 'age',
+                    title: '年龄'
+                },
+                {
+                    dataIndex: 'email',
+                    title: '邮箱'
+                },
+            ],
+            dataSource: [
+                {
+                    name: 'Jack',
+                    age: 15,
+                    email: 'Jack@124.com'
+                }
+            ]
+        }
     }
 ], null, 4)
 

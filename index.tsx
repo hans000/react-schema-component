@@ -1,5 +1,5 @@
-import React, { Suspense } from "react"
-import { VanillaElementType, compileExpression, getComponent, isVanillaElement } from "./utils"
+import React, { Suspense, lazy } from "react"
+import { VanillaElementType, compileExpression, isVanillaElement, toDashName } from "./utils"
 
 type LiteralUnion<T> = T | (string & {})
 // type MergeIntersection<T> = { [Key in keyof T]: T[Key] }
@@ -28,6 +28,37 @@ type ComponentMapType = Record<string, React.LazyExoticComponent<any> | React.FC
 
 export function registerComponents(map: ComponentMapType) {
     Object.assign(__map, map)
+}
+
+function NotFound(props: {
+    name: string
+}) {
+    return (
+        <div style={{ color: 'red', border: '1px solid #eee', padding: '8px 16px' }}>
+            <span>`{props.name}`</span>
+            <span> component cannot be found</span>
+        </div>
+    )
+}
+
+function getComponent(name: string) {
+    const [main, sub] = name.split('.')
+
+    return lazy(() => import('@ant-design/pro-components').then(res => {
+        const comp = res[name]
+        if (comp) {
+            return {
+                default: (sub ? res[main][sub] : res[main]) as React.ComponentType,
+            }
+        }
+        return import('antd').then(res => {
+            return {
+                default: sub && res[main][sub]
+                    ? res[main][sub]
+                    : () => <NotFound key={name} name={name} />
+            }
+        })
+    }))
 }
 
 export default function SchemaComponent<T extends ComponentMapType>(props: {
@@ -73,7 +104,12 @@ export default function SchemaComponent<T extends ComponentMapType>(props: {
     }
 
     function renderItem(config: any, key: string | number) {
-        const Comp = getComponent(config.name, __map)
+        const Comp = !config.name
+            ? null
+            : __map[config.name]
+            ? __map[config.name]
+            : getComponent(config.name)
+
         const componentProps = config.props || {}
         const newProps = handleProps(componentProps)
 
@@ -86,10 +122,7 @@ export default function SchemaComponent<T extends ComponentMapType>(props: {
                 return props.renderNotFound(config)
             }
             return (
-                <div style={{ color: 'red', border: '1px solid #eee', padding: '8px 16px' }} key={key}>
-                    <span>`{config.name}`</span>
-                    <span> component cannot be found</span>
-                </div>
+                <NotFound key={key} name={config.name} />
             )
         }
 
