@@ -1,5 +1,6 @@
 import React, { Suspense, lazy } from "react"
 import { VanillaElementType, compileExpression, isVanillaElement, toDashName } from "./utils"
+import { ErrorBoundary } from "@ant-design/pro-components"
 
 type LiteralUnion<T> = T | (string & {})
 // type MergeIntersection<T> = { [Key in keyof T]: T[Key] }
@@ -127,9 +128,11 @@ export default function SchemaComponent<T extends ComponentMapType>(props: {
         }
 
         return (
-            <Suspense key={key} fallback={props.renderFallback ? props.renderFallback(config) : null}>
-                <Comp {...newProps} />
-            </Suspense>
+            <ErrorBoundary key={key}>
+                <Suspense fallback={props.renderFallback ? props.renderFallback(config) : null}>
+                    <Comp {...newProps} />
+                </Suspense>
+            </ErrorBoundary>
         )
     }
 

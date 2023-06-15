@@ -91,6 +91,7 @@ const raw = JSON.stringify([
                     title: '邮箱'
                 },
             ],
+            rowKey: 'name',
             dataSource: [
                 {
                     name: 'Jack',
