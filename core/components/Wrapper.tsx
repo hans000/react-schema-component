@@ -2,8 +2,8 @@ import React, { Suspense } from 'react';
 import { ErrorContainer } from '..';
 
 export interface LoaderProps {
-    predicate: (name: string) => boolean
-    render: (name: string) => React.LazyExoticComponent<React.ComponentType<any>>
+    predicate: (name?: string) => boolean
+    render: (name?: string) => React.LazyExoticComponent<React.ComponentType<any>>
 }
 
 export default function Wrapper(props: {

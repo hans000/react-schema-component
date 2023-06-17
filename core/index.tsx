@@ -6,17 +6,16 @@ import NotFound from "./components/NotFound"
 import { LoaderProps } from "./components/Wrapper"
 
 type LiteralUnion<T> = T | (string & {})
-
+type ComponentMapType = Record<string, React.LazyExoticComponent<any> | React.FC<any>>
 type SchemaPropsType<T> = {
     name: LiteralUnion<VanillaElementType | keyof T>
     props?: any
 }
 
-let __map = {}
+let __map: ComponentMapType = {}
 const __handles: LoaderProps[] = []
-export let ErrorContainer: React.ComponentType<React.PropsWithChildren> = ErrorBoundary
 
-type ComponentMapType = Record<string, React.LazyExoticComponent<any> | React.FC<any>>
+export let ErrorContainer: React.ComponentType<React.PropsWithChildren> = ErrorBoundary
 
 export function defineConfig(props: {
     loaders?: LoaderProps[]

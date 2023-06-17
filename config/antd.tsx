@@ -1,7 +1,8 @@
 import React, { lazy } from 'react'
 import { LoaderProps } from '../core/components/Wrapper'
+import { splitComponentName } from '../core/utils'
 
-export const map: Record<string, React.FC> = {
+export const map: Record<string, React.FC<any>> = {
     Affix: lazy(() => import('antd/es/affix')),
     Alert: lazy(() => import('antd/es/alert')),
     Anchor: lazy(() => import('antd/es/anchor')),
@@ -71,15 +72,15 @@ export const map: Record<string, React.FC> = {
 }
 
 export const loader: LoaderProps = {
-    predicate(name: string) {
-        const [main] = name.split('.')
+    predicate(name) {
+        const [main] = splitComponentName(name)
         return Object.keys(map).includes(main)
     },
-    render(name: string) {
-        const [main, sub] = name.split('.')
+    render(name) {
+        const [main, sub] = splitComponentName(name)
         return lazy(() => import('antd').then(res => {
             return {
-                default: (sub ? res[main][sub] : res[main]) as React.ComponentType,
+                default: (sub ? (res[main] as any)[sub] : res[main]) as React.ComponentType,
             }
         }))
     },

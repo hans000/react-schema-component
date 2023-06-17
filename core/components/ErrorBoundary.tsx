@@ -4,11 +4,11 @@ export default class ErrorBoundary extends React.PureComponent<any, {
     hasError: boolean
     errorInfo: string
 }> {
-    constructor(props) {
+    constructor(props: any) {
         super(props);
         this.state = {
             hasError: false,
-            errorInfo: null,
+            errorInfo: '',
         };
     }
 
@@ -16,7 +16,7 @@ export default class ErrorBoundary extends React.PureComponent<any, {
         return { hasError: true, errorInfo: error.message };
     }
 
-    componentDidCatch(error, errorInfo: React.ErrorInfo) {
+    componentDidCatch(error: any, errorInfo: React.ErrorInfo) {
         console.log(error, errorInfo);
     }
 

@@ -28,3 +28,7 @@ export function isVanillaElement(name: string) {
 export function toDashName(name: string) {
     return name.replace(/(?=[A-Z])(\w)/g, (_, a) => '-' + a.toLowerCase()).slice(1)
 }
+
+export function splitComponentName(name?: string) {
+    return (name || '').split('.')
+}
