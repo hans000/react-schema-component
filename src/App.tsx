@@ -138,7 +138,7 @@ export default function App() {
             </Col>
             <Col span={12}>
                 <div style={{ height: '100vh' }}>
-                    <Editor theme="vs-dark" language={'json'} value={value} onChange={(v) => setValue(v)} />
+                    <Editor theme="vs-dark" language={'json'} value={value} onChange={(v) => setValue(v || '')} />
                 </div>
             </Col>
         </Row>
