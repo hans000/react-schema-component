@@ -1,12 +1,20 @@
 import { Alert, Card, Col, Row } from "antd";
 import Editor from '@monaco-editor/react'
 import { useMemo, useState } from "react";
-import SchemaComponent, { registerComponents } from "..";
-import { antd, antdPro } from "../config";
+import SchemaComponent, { defineConfig } from "..";
+import { antdLoader, antdMap, antdProLoader, antdProMap } from "../config";
+import { ErrorBoundary } from "@ant-design/pro-components";
 
-registerComponents({
-    ...antd,
-    ...antdPro,
+defineConfig({
+    componentMap: {
+        ...antdMap,
+        ...antdProMap,
+    },
+    loaders: [
+        antdLoader,
+        antdProLoader,
+    ],
+    ErrorBoundary: ErrorBoundary
 })
 
 const raw = JSON.stringify([
@@ -31,7 +39,7 @@ const raw = JSON.stringify([
     {
         name: "ProFormText",
         props: {
-            placeholder: "请输入",
+            placeholder: "{{ count }}",
             style: {
                 marginBottom: 24
             }
@@ -121,7 +129,10 @@ export default function App() {
         <Row>
             <Col span={12} style={{ padding: 8, backgroundColor: '#eee' }}>
                 <Card style={{ marginBottom: 12 }}>
-                    <SchemaComponent schema={schema} />
+                    <SchemaComponent context={{
+                        msg: 'hello react-schema-component',
+                        count: 666,
+                    }} schema={schema} />
                 </Card>
                 {errorText && <Alert showIcon type="error" description={errorText} />}
             </Col>

@@ -1,6 +1,7 @@
-import { lazy } from 'react';
+import React, { lazy } from 'react'
+import { LoaderProps } from '../core/components/Wrapper'
 
-export default {
+export const map: Record<string, React.FC> = {
     Affix: lazy(() => import('antd/es/affix')),
     Alert: lazy(() => import('antd/es/alert')),
     Anchor: lazy(() => import('antd/es/anchor')),
@@ -67,4 +68,19 @@ export default {
     Typography: lazy(() => import('antd/es/typography')),
     Upload: lazy(() => import('antd/es/upload')),
     Watermark: lazy(() => import('antd/es/watermark')),
-} as Record<string, any>
+}
+
+export const loader: LoaderProps = {
+    predicate(name: string) {
+        const [main] = name.split('.')
+        return Object.keys(map).includes(main)
+    },
+    render(name: string) {
+        const [main, sub] = name.split('.')
+        return lazy(() => import('antd').then(res => {
+            return {
+                default: (sub ? res[main][sub] : res[main]) as React.ComponentType,
+            }
+        }))
+    },
+}

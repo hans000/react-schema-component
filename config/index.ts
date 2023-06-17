@@ -1,2 +1,3 @@
-export { default as antd } from './antd'
-export { default as antdPro } from './antdPro'
+export { map as antdMap, loader as antdLoader } from './antd'
+export { map as antdProMap, loader as antdProLoader } from './antdPro'
+export { default as Wrapper } from '../core/components/Wrapper'

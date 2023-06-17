@@ -1,6 +1,6 @@
 {
   "name": "react-schema-component",
-  "version": "0.1.5-alpha",
+  "version": "0.1.6-alpha",
   "description": "",
   "main": "index.tsx",
   "module": "index.tsx",
@@ -14,10 +14,10 @@
   ],
   "files": [
     "config",
-    "utils",
+    "core",
     "index",
-    "LICENSE",
-    "readme"
+    "readme",
+    "LICENSE"
   ],
   "author": {
     "name": "hans000",

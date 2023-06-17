@@ -16,7 +16,7 @@
     /* Linting */
     "strict": false,
   },
-  "include": ["src", "config", "utils", "./index.tsx"],
+  "include": ["src", "config", "core", "./index.tsx"],
   "references": [
     { "path": "./tsconfig.node.json" }
   ]
