@@ -1,0 +1,1 @@
+import{I as o,H as a,F as e,C as r,a as n}from"./Sider-a98be609.js";import"./index-7e4a4b07.js";import"./LeftOutlined-77672577.js";import"./RightOutlined-69814dd2.js";const t=o;t.Header=a;t.Footer=e;t.Content=r;t.Sider=n;const p=t;export{p as default};

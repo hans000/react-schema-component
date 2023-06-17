@@ -1,0 +1,1 @@
+import{r as s,aw as c}from"./index-7e4a4b07.js";import{u as a}from"./useForceUpdate-26674e36.js";function p(){let t=arguments.length>0&&arguments[0]!==void 0?arguments[0]:!0;const e=s.useRef({}),n=a(),r=c();return s.useEffect(()=>{const u=r.subscribe(o=>{e.current=o,t&&n()});return()=>r.unsubscribe(u)},[]),e.current}export{p as u};

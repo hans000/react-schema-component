@@ -1,0 +1,1 @@
+import{r as s,X as i,L as n}from"./index-7e4a4b07.js";const d=(t,c)=>{const o=s.useContext(i),a=s.useMemo(()=>{var e;const l=c||n[t],u=(e=o?.[t])!==null&&e!==void 0?e:{};return Object.assign(Object.assign({},typeof l=="function"?l():l),u||{})},[t,c,o]),r=s.useMemo(()=>{const e=o?.locale;return o?.exist&&!e?n.locale:e},[o]);return[a,r]},L=d;export{L as u};
